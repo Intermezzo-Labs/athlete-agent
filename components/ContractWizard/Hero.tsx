@@ -11,7 +11,7 @@ interface HeroProps {
 // ── Sports image sources (Unsplash) ──────────────────────────────────────────
 const IMAGES = {
   hero: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1920&q=80",
-  editorial: "https://images.unsplash.com/photo-1546519638405-a4c27b3cfbea?w=900&q=80",
+  editorial: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=700&q=80",
   feature1: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=700&q=80",
   feature2: "https://images.unsplash.com/photo-1530549387789-4c1017266635?w=700&q=80",
   feature3: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=700&q=80",

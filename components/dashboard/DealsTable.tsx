@@ -92,7 +92,7 @@ export const DealsTable = memo(function DealsTable({
 
       {/* Expanded filter panel */}
       {filtersExpanded && filterOptions ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 border border-line rounded-lg bg-surface p-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 border border-line rounded-lg bg-surface p-4">
           <FilterSelect value={filters.sport} onChange={(v) => onFilterChange("sport", v)} options={filterOptions.sports} placeholder="All sports" />
           <FilterSelect value={filters.state} onChange={(v) => onFilterChange("state", v)} options={filterOptions.states} placeholder="All states" />
           <FilterSelect value={filters.riskLevel} onChange={(v) => onFilterChange("riskLevel", v)} options={filterOptions.riskLevels} placeholder="All risk levels" />
@@ -115,7 +115,7 @@ export const DealsTable = memo(function DealsTable({
       ) : null}
 
       {/* Table */}
-        <div className="border border-line rounded-lg bg-surface overflow-hidden">
+      <div className="border border-line rounded-lg bg-surface overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             {tableHead}

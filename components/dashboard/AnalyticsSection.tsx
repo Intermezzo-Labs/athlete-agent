@@ -225,12 +225,12 @@ export const AnalyticsSection = memo(function AnalyticsSection({
                 <StatCard
                   label="Exclusivity Rate"
                   value={`${analytics.exclusivityBreakdown.exclusive + analytics.exclusivityBreakdown.non_exclusive > 0
-                      ? Math.round(
-                        (analytics.exclusivityBreakdown.exclusive /
-                          (analytics.exclusivityBreakdown.exclusive + analytics.exclusivityBreakdown.non_exclusive)) *
-                        100
-                      )
-                      : 0
+                    ? Math.round(
+                      (analytics.exclusivityBreakdown.exclusive /
+                        (analytics.exclusivityBreakdown.exclusive + analytics.exclusivityBreakdown.non_exclusive)) *
+                      100
+                    )
+                    : 0
                     }%`}
                 />
                 <StatCard label="Clawback Rate" value={`${analytics.clawbackRate}%`} />

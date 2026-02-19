@@ -1,6 +1,6 @@
+import { ThemeProvider } from "components/ThemeProvider"
 import type { Metadata } from "next"
 import { Outfit } from "next/font/google"
-import { ThemeProvider } from "components/ThemeProvider"
 import "styles/tailwind.css"
 
 const outfit = Outfit({

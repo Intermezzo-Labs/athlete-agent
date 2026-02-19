@@ -2,7 +2,7 @@
 
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react"
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 interface HeroProps {
   onStart: () => void
@@ -20,6 +20,24 @@ const IMAGES = {
 
 export function Hero({ onStart }: HeroProps) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [stickyVisible, setStickyVisible] = useState(false)
+  const heroCTARef = useRef<HTMLButtonElement>(null)
+
+  // Show sticky bar once the hero CTA button scrolls out of view (y.co pattern)
+  useEffect(() => {
+    const el = heroCTARef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry) setStickyVisible(!entry.isIntersecting)
+      },
+      { threshold: 0 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="bg-black text-white">
@@ -32,10 +50,35 @@ export function Hero({ onStart }: HeroProps) {
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           <a
             href="/"
-            className="text-white font-bold text-sm tracking-[0.2em] uppercase select-none"
+            className="select-none"
             aria-label="Athlete Agent Labs — home"
           >
-            Athlete Agent Labs
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 480 48"
+              fill="none"
+              className="h-7 w-auto"
+              aria-hidden="true"
+            >
+              {/* Speed lines icon */}
+              <g transform="translate(0, 4)">
+                <path d="M0 40L48 0L52 0L20 40Z" fill="#FFD60A" />
+                <path d="M10 40L50 6L54 6L26 40Z" fill="#FFD60A" opacity="0.7" />
+                <path d="M20 40L52 12L56 12L32 40Z" fill="#FFD60A" opacity="0.4" />
+              </g>
+              {/* Text */}
+              <text
+                x="66"
+                y="35"
+                fontFamily="'Arial Black', 'Impact', sans-serif"
+                fontWeight="900"
+                fontSize="26"
+                fill="#FFD60A"
+                letterSpacing="3"
+              >
+                ATHLETE AGENT LABS
+              </text>
+            </svg>
           </a>
 
           {/* Desktop nav */}
@@ -145,6 +188,7 @@ export function Hero({ onStart }: HeroProps) {
 
           <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
             <button
+              ref={heroCTARef}
               onClick={onStart}
               className="inline-flex items-center gap-3 bg-[#FFD60A] text-black px-8 py-4 text-xs font-black uppercase tracking-[0.2em] rounded-sm hover:bg-[#f0c800] transition duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
               aria-label="Begin NIL contract analysis"
@@ -360,8 +404,35 @@ export function Hero({ onStart }: HeroProps) {
         </div>
       </section>
 
+      {/* ── Sticky Mobile CTA — visible once hero button leaves viewport ── */}
+      <div
+        role="complementary"
+        aria-label="Sticky call to action"
+        className={[
+          "md:hidden fixed bottom-0 left-0 right-0 z-50",
+          "transition-transform duration-300 ease-in-out",
+          stickyVisible ? "translate-y-0" : "translate-y-full",
+        ].join(" ")}
+      >
+        {/* Gradient fade above the bar for depth */}
+        <div className="h-8 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" aria-hidden="true" />
+        <div className="bg-black border-t border-white/10 px-4 py-3">
+          <button
+            onClick={onStart}
+            className="w-full inline-flex items-center justify-center gap-3 bg-[#FFD60A] text-black px-6 py-4 text-xs font-black uppercase tracking-[0.2em] rounded-sm hover:bg-[#f0c800] active:scale-[0.98] transition duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            aria-label="Analyze your NIL contract"
+          >
+            Analyze My Contract
+            <ArrowRight className="w-4 h-4" aria-hidden="true" />
+          </button>
+          <p className="mt-2 text-center text-[10px] text-white/25 tracking-wide">
+            Free during beta &middot; No account required
+          </p>
+        </div>
+      </div>
+
       {/* ── Footer ────────────────────────────────────────────────────────── */}
-      <footer className="bg-black border-t border-white/10 py-12">
+      <footer className="bg-black border-t border-white/10 py-12 pb-28 md:pb-12">
         <div className="mx-auto max-w-7xl px-6 md:px-16 flex flex-col md:flex-row items-center justify-between gap-6">
           <span className="text-white font-bold text-xs tracking-[0.2em] uppercase">
             Athlete Agent Labs

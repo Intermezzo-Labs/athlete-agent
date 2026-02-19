@@ -21,7 +21,7 @@ if (
       setItem:    (key: string, value: string) => { store.set(key, String(value)) },
       removeItem: (key: string) => { store.delete(key) },
       clear:      () => { store.clear() },
-      key:        (n: number) => [...store.keys()][n] ?? null,
+      key:        (n: number) => Array.from(store.keys())[n] ?? null,
       get length() { return store.size },
     },
   })

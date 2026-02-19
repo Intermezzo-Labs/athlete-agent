@@ -122,16 +122,16 @@ export const AnalyticsSection = memo(function AnalyticsSection({
       {Object.keys(summary.riskBySport).length > 0 ? (
         <SectionCard title="Risk Distribution by Sport">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm font-body">
+            <table className="w-full text-sm">
               <thead>
-                <tr className="bg-navy-900 text-white text-left">
-                  <th className="px-4 py-2 uppercase tracking-wider text-xs font-bold">Sport</th>
-                  <th className="px-4 py-2 uppercase tracking-wider text-xs font-bold text-center">Low</th>
-                  <th className="px-4 py-2 uppercase tracking-wider text-xs font-bold text-center">Medium</th>
-                  <th className="px-4 py-2 uppercase tracking-wider text-xs font-bold text-center">High</th>
+                <tr className="bg-subtle border-b border-line text-left">
+                  <th className="px-4 py-2 text-xs font-medium text-ink-muted">Sport</th>
+                  <th className="px-4 py-2 text-xs font-medium text-ink-muted text-center">Low</th>
+                  <th className="px-4 py-2 text-xs font-medium text-ink-muted text-center">Medium</th>
+                  <th className="px-4 py-2 text-xs font-medium text-ink-muted text-center">High</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-navy-100">
+              <tbody className="divide-y divide-line">
                 {Object.entries(summary.riskBySport)
                   .sort((a, b) =>
                     Object.values(b[1]).reduce((s, v) => s + v, 0) -
@@ -140,19 +140,19 @@ export const AnalyticsSection = memo(function AnalyticsSection({
                   .slice(0, 10)
                   .map(([sport, risks]) => (
                     <tr key={sport}>
-                      <td className="py-2 px-4 text-navy-700">{sport}</td>
+                      <td className="py-2 px-4 text-ink-muted">{sport}</td>
                       <td className="py-2 px-4 text-center">
-                        <span className="inline-block px-2 py-0.5 rounded-md text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800">
+                        <span className="inline-block px-2 py-0.5 rounded border text-xs font-medium bg-emerald-50 text-emerald-700 border-emerald-200">
                           {risks["Low"] ?? risks["low"] ?? 0}
                         </span>
                       </td>
                       <td className="py-2 px-4 text-center">
-                        <span className="inline-block px-2 py-0.5 rounded-md text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-800">
+                        <span className="inline-block px-2 py-0.5 rounded border text-xs font-medium bg-amber-50 text-amber-700 border-amber-200">
                           {risks["Medium"] ?? risks["medium"] ?? 0}
                         </span>
                       </td>
                       <td className="py-2 px-4 text-center">
-                        <span className="inline-block px-2 py-0.5 rounded-md text-xs font-bold uppercase tracking-wider bg-red-100 text-red-800">
+                        <span className="inline-block px-2 py-0.5 rounded border text-xs font-medium bg-red-50 text-red-700 border-red-200">
                           {risks["High"] ?? risks["high"] ?? 0}
                         </span>
                       </td>
@@ -181,13 +181,13 @@ export const AnalyticsSection = memo(function AnalyticsSection({
       {/* Contract Patterns */}
       {analyticsLoading ? (
         <div className="flex items-center justify-center py-12">
-          <Loader2 className="w-6 h-6 animate-spin text-navy-400" />
-          <span className="ml-2 text-sm text-navy-500 font-body">Loading contract patterns…</span>
+          <Loader2 className="w-6 h-6 animate-spin text-ink-faint" aria-hidden="true" />
+          <span className="ml-2 text-sm text-ink-muted">Loading contract patterns…</span>
         </div>
       ) : analytics && analytics.dealsAnalyzed > 0 ? (
         <>
-          <h2 className="text-lg font-display font-bold uppercase tracking-tight text-navy-900">
-            Contract Patterns ({analytics.dealsAnalyzed} extracted)
+          <h2 className="text-lg font-semibold text-ink">
+            Contract patterns ({analytics.dealsAnalyzed} extracted)
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {Object.keys(analytics.payorTypeDistribution).length > 0 ? (

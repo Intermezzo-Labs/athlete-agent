@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Outfit } from "next/font/google"
+import { ThemeProvider } from "components/ThemeProvider"
 import "styles/tailwind.css"
 
 const outfit = Outfit({
@@ -17,8 +18,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={outfit.variable}>
-      <body className="min-h-screen bg-slate-50 font-body">{children}</body>
+    <html lang="en" className={outfit.variable} suppressHydrationWarning>
+      <body className="min-h-screen bg-canvas font-body antialiased">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   )
 }

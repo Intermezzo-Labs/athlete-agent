@@ -1,6 +1,9 @@
 "use client"
 
+import logoDark from "@/assets/logo-dark.svg"
+import logoWhite from "@/assets/logo-white.svg"
 import clsx from "clsx"
+import { ThemeToggle } from "components/ThemeToggle"
 import { Activity, BarChart3, DollarSign, FileCheck, Loader2, LogOut } from "lucide-react"
 import Image from "next/image"
 import { startTransition, useCallback, useEffect, useState } from "react"
@@ -125,43 +128,49 @@ export function DashboardClient() {
 
   const tabCls = (tab: "deals" | "analytics") =>
     clsx(
-      "px-1 pb-3 transition-colors",
+      "px-1 pb-3 text-sm transition duration-200 ease-in-out",
       activeTab === tab
-        ? "border-b-2 border-b-gold-500 text-navy-900 font-bold uppercase tracking-wider text-sm"
-        : "border-b-2 border-transparent text-navy-500 hover:text-navy-700 font-medium uppercase tracking-wider text-sm"
+        ? "border-b-2 border-b-ink text-ink font-medium"
+        : "border-b-2 border-transparent text-ink-muted hover:text-ink"
     )
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="bg-navy-950 border-b-2 border-b-gold-500 text-white">
+    <div className="min-h-screen bg-canvas">
+      <header className="border-b border-line">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Image src="/logo-white.svg" alt="Athlete Agent Labs" width={180} height={28} className="h-6 w-auto" />
-          <button
-            onClick={() => setDashKey(null)}
-            className="flex items-center gap-2 text-navy-300 uppercase tracking-wider text-xs font-bold hover:text-gold-400 transition-colors font-body"
-          >
-            <LogOut className="w-4 h-4" /> Sign Out
-          </button>
+          <div className="flex items-center">
+            <Image src={logoDark} alt="Athlete Agent Labs" className="h-7 w-auto dark:hidden" />
+            <Image src={logoWhite} alt="Athlete Agent Labs" className="h-7 w-auto hidden dark:block" />
+          </div>
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <button
+              onClick={() => setDashKey(null)}
+              className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition duration-200 ease-in-out"
+            >
+              <LogOut className="w-4 h-4" aria-hidden="true" /> Sign out
+            </button>
+          </div>
         </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8 space-y-8">
         {loading ? (
           <div className="flex items-center justify-center py-32">
-            <Loader2 className="w-8 h-8 animate-spin text-navy-400" />
+            <Loader2 className="w-6 h-6 animate-spin text-ink-faint" aria-hidden="true" />
           </div>
         ) : (
           <>
             {/* Summary cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <SummaryCard label="Total Deals" value={summary?.totalDeals ?? 0} icon={BarChart3} />
-              <SummaryCard label="Avg Compensation" value={formatCurrency(summary?.averageCompensation ?? 0)} icon={DollarSign} />
-              <SummaryCard label="Extraction Success" value={`${(summary?.extractionSuccessRate ?? 0).toFixed(0)}%`} icon={FileCheck} />
-              <SummaryCard label="Avg Quality Score" value={`${(summary?.averageQualityScore ?? 0).toFixed(1)}%`} icon={Activity} />
+              <SummaryCard label="Total deals" value={summary?.totalDeals ?? 0} icon={BarChart3} />
+              <SummaryCard label="Avg compensation" value={formatCurrency(summary?.averageCompensation ?? 0)} icon={DollarSign} />
+              <SummaryCard label="Extraction success" value={`${(summary?.extractionSuccessRate ?? 0).toFixed(0)}%`} icon={FileCheck} />
+              <SummaryCard label="Avg quality score" value={`${(summary?.averageQualityScore ?? 0).toFixed(1)}%`} icon={Activity} />
             </div>
 
             {/* Tab bar */}
-            <div className="border-b border-navy-200 flex gap-6">
+            <div className="border-b border-line flex gap-6">
               <button onClick={() => handleTabChange("deals")} className={tabCls("deals")}>Deals</button>
               <button onClick={() => handleTabChange("analytics")} className={tabCls("analytics")}>Analytics</button>
             </div>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 48" fill="none">
+  <!-- Speed lines icon -->
+  <g transform="translate(0, 4)">
+    <path d="M0 40L48 0L52 0L20 40Z" fill="#ffffff"/>
+    <path d="M10 40L50 6L54 6L26 40Z" fill="#ffffff" opacity="0.7"/>
+    <path d="M20 40L52 12L56 12L32 40Z" fill="#ffffff" opacity="0.4"/>
+  </g>
+  <!-- Text -->
+  <text x="66" y="35" font-family="'Arial Black', 'Impact', sans-serif" font-weight="900" font-size="26" fill="#ffffff" letter-spacing="3">ATHLETE AGENT LABS</text>
+</svg>

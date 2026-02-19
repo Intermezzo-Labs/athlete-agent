@@ -15,18 +15,21 @@ export function DataSection({ title, data }: DataSectionProps) {
   if (data == null) return null
 
   return (
-    <div className="border border-navy-100 rounded-lg overflow-hidden">
+    <div className="border border-line rounded-lg overflow-hidden">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-4 py-3 bg-navy-900 hover:bg-navy-800 transition-colors text-left"
+        className="w-full flex items-center justify-between px-4 py-3 bg-subtle hover:bg-surface transition duration-200 ease-in-out text-left"
+        aria-expanded={open}
       >
-        <span className="font-bold text-sm uppercase tracking-wider text-white">{title}</span>
-        {/* ── Best practice: rendering-conditional-render ── */}
-        <ChevronRight className={clsx("w-4 h-4 text-navy-400 transition-transform", open ? "rotate-90" : null)} />
+        <span className="text-sm font-medium text-ink">{title}</span>
+        <ChevronRight
+          className={clsx("w-4 h-4 text-ink-faint transition-transform duration-200", open ? "rotate-90" : null)}
+          aria-hidden="true"
+        />
       </button>
       {open ? (
-        <div className="p-4 bg-white">
-          <pre className="text-xs text-navy-700 font-mono whitespace-pre-wrap overflow-x-auto">
+        <div className="p-4 bg-canvas border-t border-line">
+          <pre className="text-xs text-ink-muted font-mono whitespace-pre-wrap overflow-x-auto">
             {JSON.stringify(data, null, 2)}
           </pre>
         </div>

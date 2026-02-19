@@ -19,40 +19,35 @@ const PROCESSING_STEPS: ProcessingStep[] = [
 // Pure presentational component – no 'use client' needed.
 export function ProcessingState() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-dark-speed">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-16 bg-canvas">
       <div className="w-full max-w-md text-center">
-        {/* Pulsing ring */}
-        <div className="relative w-20 h-20 mx-auto mb-8">
-          <div className="absolute inset-0 rounded-full border-4 border-gold-500/20" />
-          <div className="absolute inset-0 rounded-full border-4 border-gold-500/20 animate-pulse-ring" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Loader2 className="w-8 h-8 text-gold-500 animate-spin" />
-          </div>
+        {/* Spinner */}
+        <div className="flex items-center justify-center w-14 h-14 mx-auto mb-8 rounded-full border border-line">
+          <Loader2 className="w-6 h-6 text-ink-faint animate-spin" aria-hidden="true" />
         </div>
 
-        <h2 className="font-display font-bold text-2xl uppercase tracking-tight text-white mb-2">
+        <h2 className="text-2xl font-semibold text-ink mb-2">
           Analyzing your contract
         </h2>
-        <p className="text-navy-400 font-light mb-10">This usually takes 1–2 minutes</p>
+        <p className="text-ink-muted text-sm mb-10">This usually takes 1–2 minutes.</p>
 
-        <div className="bg-navy-900/50 rounded-lg p-6 text-left border border-navy-800">
+        <div className="border border-line rounded-lg p-6 text-left">
           <div className="space-y-0">
             {PROCESSING_STEPS.map((step, i) => (
               <div key={step.label} className="flex items-start gap-4">
                 <div className="flex flex-col items-center">
                   {step.done ? (
-                    <div className="w-6 h-6 rounded-full bg-gold-500 flex items-center justify-center flex-shrink-0">
-                      <CheckCircle className="w-4 h-4 text-navy-950" />
+                    <div className="w-5 h-5 rounded-full bg-ink flex items-center justify-center flex-shrink-0">
+                      <CheckCircle className="w-3 h-3 text-canvas" aria-hidden="true" />
                     </div>
                   ) : (
-                    <div className="w-6 h-6 rounded-full border-2 border-navy-600 flex-shrink-0" />
+                    <div className="w-5 h-5 rounded-full border border-line flex-shrink-0" />
                   )}
-                  {/* ── Best practice: rendering-conditional-render ── */}
                   {i < PROCESSING_STEPS.length - 1 ? (
-                    <div className={clsx("w-0.5 h-6", step.done ? "bg-gold-500" : "bg-navy-700")} />
+                    <div className={clsx("w-px h-6 mt-1", step.done ? "bg-ink" : "bg-line")} />
                   ) : null}
                 </div>
-                <span className={clsx("text-sm font-medium pt-0.5", step.done ? "text-white" : "text-navy-500")}>
+                <span className={clsx("text-sm pt-0.5", step.done ? "text-ink font-medium" : "text-ink-faint")}>
                   {step.label}
                 </span>
               </div>

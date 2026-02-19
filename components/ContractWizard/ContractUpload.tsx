@@ -41,110 +41,112 @@ export function ContractUpload({ info, onInfoChange, onUpload, onBack, isUploadi
   const canSubmit = !!(file && info.consentToKB && !isUploading)
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-dark-speed">
-      <div className="w-full max-w-md">
-        <StepIndicator currentStep={2} totalSteps={3} />
+    <div className="min-h-screen flex flex-col bg-canvas">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-16">
+        <div className="w-full max-w-md">
+          <StepIndicator currentStep={2} totalSteps={3} />
 
-        <div className="bg-white rounded-lg shadow-2xl shadow-navy-950/50 border-t-4 border-t-gold-500 p-8">
-          <h2 className="font-display font-bold text-2xl uppercase tracking-tight text-navy-900 mb-2">
-            Upload your contract
-          </h2>
-          <p className="text-navy-500 font-light mb-6">We accept PDF, DOC, and DOCX files.</p>
+          <div className="border border-line rounded-lg p-8 bg-surface">
+            <h2 className="text-2xl font-semibold text-ink mb-2">
+              Upload your contract
+            </h2>
+            <p className="text-ink-muted text-sm mb-8">We accept PDF, DOC, and DOCX files.</p>
 
-          <div
-            {...getRootProps()}
-            className={clsx(
-              "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all",
-              isDragActive
-                ? "border-gold-500 bg-gold-500/5 shadow-inner"
-                : "border-navy-300 hover:border-gold-500/50 hover:bg-navy-50",
-              isUploading && "opacity-50 cursor-not-allowed"
-            )}
-          >
-            <input {...getInputProps()} />
-
-            {/* ── Best practice: rendering-conditional-render ── */}
-            {file ? (
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-14 h-14 bg-gold-500/10 rounded-lg flex items-center justify-center">
-                  <FileText className="w-7 h-7 text-gold-600" />
-                </div>
-                <div>
-                  <p className="font-bold text-navy-900">{file.name}</p>
-                  <p className="text-sm text-navy-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
-                </div>
-                <button
-                  onClick={(e) => { e.stopPropagation(); setFile(null) }}
-                  className="text-xs uppercase tracking-wider font-semibold text-navy-500 hover:text-gold-600"
-                >
-                  Choose different file
-                </button>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-14 h-14 bg-navy-100 rounded-lg flex items-center justify-center">
-                  <Upload className="w-7 h-7 text-navy-600" />
-                </div>
-                <div>
-                  <p className="font-bold text-navy-900">
-                    {isDragActive ? "Drop your contract here" : "Drag & drop your contract"}
-                  </p>
-                  <p className="text-sm text-navy-500">
-                    or <span className="text-gold-600 font-medium">click to browse</span>
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Consent checkbox */}
-          <div className="mt-6 p-4 bg-navy-50 rounded-md border-l-4 border-l-gold-500">
-            <label className="flex items-start gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={info.consentToKB}
-                onChange={(e) => onInfoChange({ ...info, consentToKB: e.target.checked })}
-                className="mt-1 w-4 h-4 rounded border-navy-300 text-gold-500 focus:ring-gold-500"
-              />
-              <span className="text-sm text-navy-600">
-                I consent to having my contract (with personal details removed) added to the knowledge base to help
-                improve analysis for future athletes.
-                <span className="font-bold"> This is required to use the service.</span>
-              </span>
-            </label>
-          </div>
-
-          <div className="flex gap-3 mt-8">
-            <button
-              onClick={onBack}
-              disabled={isUploading}
-              className="flex-1 px-6 py-3 border-2 border-navy-200 rounded-md font-semibold uppercase tracking-wider text-sm text-navy-600 hover:bg-navy-50 transition-colors disabled:opacity-50"
-            >
-              <ArrowLeft className="w-4 h-4 inline mr-2" />
-              Back
-            </button>
-            <button
-              onClick={handleSubmit}
-              disabled={!canSubmit}
+            <div
+              {...getRootProps()}
               className={clsx(
-                "flex-1 px-6 py-3 rounded-md font-bold uppercase tracking-wider text-sm transition-all",
-                canSubmit
-                  ? "bg-gradient-to-r from-gold-500 to-gold-600 text-navy-950 btn-athletic shadow-lg shadow-gold-500/25"
-                  : "bg-navy-100 text-navy-400 cursor-not-allowed"
+                "border border-dashed rounded-lg p-8 text-center cursor-pointer transition duration-200 ease-in-out",
+                isDragActive
+                  ? "border-ink bg-subtle"
+                  : "border-line hover:border-ink-faint hover:bg-subtle",
+                isUploading && "opacity-50 cursor-not-allowed"
               )}
             >
-              {isUploading ? (
-                <>
-                  <Loader2 className="w-4 h-4 inline mr-2 animate-spin" />
-                  Analyzing...
-                </>
+              <input {...getInputProps()} />
+
+              {file ? (
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-12 h-12 bg-subtle rounded-lg flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-ink-muted" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-ink text-sm">{file.name}</p>
+                    <p className="text-xs text-ink-muted mt-0.5">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                  </div>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setFile(null) }}
+                    className="text-xs text-ink-muted hover:text-ink transition duration-200 ease-in-out"
+                  >
+                    Choose a different file
+                  </button>
+                </div>
               ) : (
-                <>
-                  Analyze Contract
-                  <ArrowRight className="w-4 h-4 inline ml-2" />
-                </>
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-12 h-12 bg-subtle rounded-lg flex items-center justify-center">
+                    <Upload className="w-6 h-6 text-ink-muted" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-ink">
+                      {isDragActive ? "Drop your contract here" : "Drag and drop your contract"}
+                    </p>
+                    <p className="text-xs text-ink-muted mt-0.5">
+                      or <span className="text-[#FF6600]">browse files</span>
+                    </p>
+                  </div>
+                </div>
               )}
-            </button>
+            </div>
+
+            {/* Consent */}
+            <div className="mt-6 p-4 bg-subtle rounded-md border border-line">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={info.consentToKB}
+                  onChange={(e) => onInfoChange({ ...info, consentToKB: e.target.checked })}
+                  className="mt-0.5 w-4 h-4 rounded border-line text-ink focus:ring-[#FF6600]"
+                  aria-label="Consent to knowledge base"
+                />
+                <span className="text-xs text-ink-muted leading-relaxed">
+                  I consent to having my contract (with personal details removed) added to the knowledge base to help
+                  improve analysis for future athletes.
+                  <span className="font-medium text-ink"> Required to use the service.</span>
+                </span>
+              </label>
+            </div>
+
+            <div className="flex gap-3 mt-8">
+              <button
+                onClick={onBack}
+                disabled={isUploading}
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-md border border-line px-5 py-2.5 text-sm font-medium text-ink hover:bg-subtle transition duration-200 ease-in-out disabled:opacity-50"
+              >
+                <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+                Back
+              </button>
+              <button
+                onClick={handleSubmit}
+                disabled={!canSubmit}
+                className={clsx(
+                  "flex-1 inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium transition duration-200 ease-in-out",
+                  canSubmit
+                    ? "bg-[#FF6600] text-white hover:opacity-90"
+                    : "bg-subtle text-ink-faint cursor-not-allowed"
+                )}
+              >
+                {isUploading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+                    Analyzing…
+                  </>
+                ) : (
+                  <>
+                    Analyze contract
+                    <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>

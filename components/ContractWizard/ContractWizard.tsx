@@ -11,6 +11,71 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
 
 type Step = "info" | "upload" | "processing" | "report"
 
+function printReportAsPdf(report: AnalysisReport) {
+  const riskColor = (level: string) =>
+    level === "high" ? "#ef4444" : level === "medium" ? "#f59e0b" : "#10b981"
+
+  const risksHtml = report.risks
+    .map(
+      (r) => `
+      <div style="border-left:4px solid ${riskColor(r.level)};padding:12px 16px;margin-bottom:12px;background:#f8fafc;border-radius:4px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+          <div>
+            <span style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#64748b;">${r.section}</span>
+            <h3 style="margin:2px 0;font-size:15px;color:#0f172a;">${r.title}</h3>
+          </div>
+          <span style="background:${riskColor(r.level)};color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;text-transform:uppercase;height:fit-content;">${r.level}</span>
+        </div>
+        <p style="margin:4px 0;color:#334155;">${r.description}</p>
+        <div style="background:#fff;border-left:2px solid #d4a017;padding:8px 12px;margin-top:8px;border-radius:4px;">
+          <strong style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;">Recommendation:</strong> <span style="color:#334155;">${r.recommendation}</span>
+        </div>
+      </div>`,
+    )
+    .join("")
+
+  const termsHtml = report.keyTerms
+    .map(
+      (t) => `
+      <div style="border-left:2px solid #d4a017;padding:4px 12px;margin-bottom:10px;">
+        <h3 style="margin:0 0 2px;color:#0f172a;">${t.term}</h3>
+        <p style="margin:0;color:#475569;">${t.explanation}</p>
+      </div>`,
+    )
+    .join("")
+
+  const html = `<!DOCTYPE html><html><head><meta charset="utf-8"/>
+    <title>NIL Analysis – ${report.athleteName}</title>
+    <style>
+      *{box-sizing:border-box}
+      body{font-family:system-ui,sans-serif;color:#1e293b;margin:0;padding:32px;max-width:800px;margin:0 auto;}
+      h1{font-size:28px;font-weight:900;text-transform:uppercase;margin-bottom:4px;}
+      h2{font-size:18px;font-weight:700;text-transform:uppercase;margin:0 0 16px;}
+      @media print{body{padding:16px}}
+    </style>
+  </head><body>
+    <h1>Analysis Report</h1>
+    <p style="color:#64748b;">Prepared for ${report.athleteName} &bull; ${report.generatedAt}</p>
+    <div style="border-left:4px solid ${riskColor(report.overallRisk)};background:#fff;padding:16px;margin:16px 0;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+      <p style="font-weight:700;text-transform:uppercase;font-size:12px;margin:0 0 4px;">Overall Assessment</p>
+      <p style="margin:0;">${report.summary}</p>
+    </div>
+    <h2>Issues Identified (${report.risks.length})</h2>${risksHtml}
+    <h2 style="margin-top:24px;">Key Terms Explained</h2>${termsHtml}
+    <div style="border-left:4px solid #d4a017;background:#0f172a;color:#94a3b8;padding:16px;margin-top:24px;border-radius:4px;">
+      <p style="font-size:11px;font-weight:700;text-transform:uppercase;color:#fff;margin:0 0 4px;">Important Disclaimer</p>
+      <p style="font-size:13px;margin:0;">This report is for informational purposes only and does not constitute legal advice. Consult your own legal counsel before signing any contract.</p>
+    </div>
+  </body></html>`
+
+  const win = window.open("", "_blank")
+  if (!win) return
+  win.document.write(html)
+  win.document.close()
+  win.focus()
+  win.print()
+}
+
 // ── Best practice: rendering-hoist-jsx ──
 // Default athlete info is a constant so useState never re-allocates it.
 const DEFAULT_ATHLETE: AthleteInfo = {
@@ -55,6 +120,7 @@ export default function ContractWizard() {
     if (!report) return
     try {
       const response = await fetch(`${API_URL}/report/${report.id}/pdf`)
+      if (!response.ok) throw new Error("PDF endpoint unavailable")
       const blob = await response.blob()
       const url = URL.createObjectURL(blob)
       const a = document.createElement("a")
@@ -65,7 +131,8 @@ export default function ContractWizard() {
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
     } catch {
-      // silently ignore – user will retry
+      // API unavailable – fall back to browser print-to-PDF
+      printReportAsPdf(report)
     }
   }
 

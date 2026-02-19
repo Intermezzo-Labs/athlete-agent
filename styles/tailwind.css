@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* ── Dark mode variant (class strategy) ── */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -13,6 +16,29 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+}
+
+/* ── Semantic color tokens ── */
+:root {
+  color-scheme: light;
+  --canvas:    #ffffff;
+  --surface:   #ffffff;
+  --subtle:    #f5f5f5;
+  --line:      #e5e5e5;
+  --ink:       #0a0a0a;
+  --ink-muted: #525252;
+  --ink-faint: #a3a3a3;
+}
+
+.dark {
+  color-scheme: dark;
+  --canvas:    #0c0c0c;
+  --surface:   #141414;
+  --subtle:    #1c1c1c;
+  --line:      #272727;
+  --ink:       #f0f0f0;
+  --ink-muted: #a3a3a3;
+  --ink-faint: #555555;
 }
 
 /* ── Athlete Agent custom theme ── */
@@ -39,6 +65,15 @@
   /* Font families */
   --font-body: var(--font-outfit, ui-sans-serif, system-ui, sans-serif);
   --font-display: var(--font-outfit, ui-sans-serif, system-ui, sans-serif);
+
+  /* Semantic tokens (reference CSS vars) */
+  --color-canvas:    var(--canvas);
+  --color-surface:   var(--surface);
+  --color-subtle:    var(--subtle);
+  --color-line:      var(--line);
+  --color-ink:       var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
 
   /* Custom animations */
   --animate-slide-up: slide-up 0.6s ease both;
@@ -73,18 +108,18 @@
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #060f1d;
-    color: #102a43;
+    background-color: var(--canvas);
+    color: var(--ink);
   }
 
   ::-webkit-scrollbar        { width: 8px; }
-  ::-webkit-scrollbar-track  { background: #f1f5f9; }
-  ::-webkit-scrollbar-thumb  { background: #cbd5e1; border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: #ffd60a; }
+  ::-webkit-scrollbar-track  { background: var(--subtle); }
+  ::-webkit-scrollbar-thumb  { background: var(--line); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #FF6600; }
 
   input:focus, select:focus, textarea:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.3);
+    box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.15);
   }
 }
 

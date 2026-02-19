@@ -37,112 +37,119 @@ export function AthleteForm({ info, onChange, onNext, onBack }: AthleteFormProps
   const isValid = !!(info.name && info.email && info.school && info.sport && info.state)
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-dark-speed">
-      <div className="w-full max-w-md">
-        <StepIndicator currentStep={1} totalSteps={3} />
+    <div className="min-h-screen flex flex-col bg-canvas">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-16">
+        <div className="w-full max-w-md">
+          <StepIndicator currentStep={1} totalSteps={3} />
 
-        <div className="bg-white rounded-lg shadow-2xl shadow-navy-950/50 border-t-4 border-t-gold-500 p-8">
-          <h2 className="font-display font-bold text-2xl uppercase tracking-tight text-navy-900 mb-2">
-            Tell us about yourself
-          </h2>
-          <p className="text-navy-500 font-light mb-6">
-            This helps us tailor the analysis to your specific situation.
-          </p>
+          <div className="border border-line rounded-lg p-8 bg-surface">
+            <h2 className="text-2xl font-semibold text-ink mb-2">
+              Tell us about yourself
+            </h2>
+            <p className="text-ink-muted text-sm mb-8">
+              This helps us tailor the analysis to your specific situation.
+            </p>
 
-          <div className="space-y-4">
-            <div>
-              <label className="block text-xs uppercase tracking-wider font-semibold text-navy-600 mb-1.5">
-                Full Name
-              </label>
-              <input
-                type="text"
-                value={info.name}
-                onChange={(e) => onChange({ ...info, name: e.target.value })}
-                className="w-full px-4 py-3 border border-navy-200 rounded-md bg-white text-navy-900 focus:border-gold-500 transition-colors"
-                placeholder="John Smith"
-              />
+            <div className="space-y-5">
+              <div>
+                <label className="block text-xs font-medium text-ink-muted mb-1.5" htmlFor="af-name">
+                  Full name
+                </label>
+                <input
+                  id="af-name"
+                  type="text"
+                  value={info.name}
+                  onChange={(e) => onChange({ ...info, name: e.target.value })}
+                  className="w-full px-3 py-2.5 border border-line rounded-md bg-surface text-ink placeholder:text-ink-faint focus:outline-none focus:border-ink transition duration-200 ease-in-out text-sm"
+                  placeholder="Jordan Smith"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-ink-muted mb-1.5" htmlFor="af-email">
+                  School email
+                </label>
+                <input
+                  id="af-email"
+                  type="email"
+                  value={info.email}
+                  onChange={(e) => onChange({ ...info, email: e.target.value })}
+                  className="w-full px-3 py-2.5 border border-line rounded-md bg-surface text-ink placeholder:text-ink-faint focus:outline-none focus:border-ink transition duration-200 ease-in-out text-sm"
+                  placeholder="jsmith@university.edu"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-ink-muted mb-1.5" htmlFor="af-school">
+                  School or university
+                </label>
+                <input
+                  id="af-school"
+                  type="text"
+                  value={info.school}
+                  onChange={(e) => onChange({ ...info, school: e.target.value })}
+                  className="w-full px-3 py-2.5 border border-line rounded-md bg-surface text-ink placeholder:text-ink-faint focus:outline-none focus:border-ink transition duration-200 ease-in-out text-sm"
+                  placeholder="University of Florida"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-ink-muted mb-1.5" htmlFor="af-sport">
+                  Sport
+                </label>
+                <select
+                  id="af-sport"
+                  value={info.sport}
+                  onChange={(e) => onChange({ ...info, sport: e.target.value })}
+                  className="w-full px-3 py-2.5 border border-line rounded-md bg-surface text-ink focus:outline-none focus:border-ink transition duration-200 ease-in-out text-sm"
+                >
+                  <option value="">Select your sport</option>
+                  {SPORTS.map((sport) => (
+                    <option key={sport} value={sport}>{sport}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-ink-muted mb-1.5" htmlFor="af-state">
+                  State where school is located
+                </label>
+                <select
+                  id="af-state"
+                  value={info.state}
+                  onChange={(e) => onChange({ ...info, state: e.target.value })}
+                  className="w-full px-3 py-2.5 border border-line rounded-md bg-surface text-ink focus:outline-none focus:border-ink transition duration-200 ease-in-out text-sm"
+                >
+                  <option value="">Select state</option>
+                  {US_STATES.map((state) => (
+                    <option key={state} value={state}>{state}</option>
+                  ))}
+                </select>
+              </div>
             </div>
 
-            <div>
-              <label className="block text-xs uppercase tracking-wider font-semibold text-navy-600 mb-1.5">
-                School Email
-              </label>
-              <input
-                type="email"
-                value={info.email}
-                onChange={(e) => onChange({ ...info, email: e.target.value })}
-                className="w-full px-4 py-3 border border-navy-200 rounded-md bg-white text-navy-900 focus:border-gold-500 transition-colors"
-                placeholder="jsmith@university.edu"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs uppercase tracking-wider font-semibold text-navy-600 mb-1.5">
-                School / University
-              </label>
-              <input
-                type="text"
-                value={info.school}
-                onChange={(e) => onChange({ ...info, school: e.target.value })}
-                className="w-full px-4 py-3 border border-navy-200 rounded-md bg-white text-navy-900 focus:border-gold-500 transition-colors"
-                placeholder="University of Florida"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs uppercase tracking-wider font-semibold text-navy-600 mb-1.5">
-                Sport
-              </label>
-              <select
-                value={info.sport}
-                onChange={(e) => onChange({ ...info, sport: e.target.value })}
-                className="w-full px-4 py-3 border border-navy-200 rounded-md bg-white text-navy-900 focus:border-gold-500 transition-colors"
+            <div className="flex gap-3 mt-8">
+              <button
+                onClick={onBack}
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-md border border-line px-5 py-2.5 text-sm font-medium text-ink hover:bg-subtle transition duration-200 ease-in-out"
               >
-                <option value="">Select your sport</option>
-                {SPORTS.map((sport) => (
-                  <option key={sport} value={sport}>{sport}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs uppercase tracking-wider font-semibold text-navy-600 mb-1.5">
-                State (where school is located)
-              </label>
-              <select
-                value={info.state}
-                onChange={(e) => onChange({ ...info, state: e.target.value })}
-                className="w-full px-4 py-3 border border-navy-200 rounded-md bg-white text-navy-900 focus:border-gold-500 transition-colors"
+                <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+                Back
+              </button>
+              <button
+                onClick={onNext}
+                disabled={!isValid}
+                className={clsx(
+                  "flex-1 inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium transition duration-200 ease-in-out",
+                  isValid
+                    ? "bg-[#FF6600] text-white hover:opacity-90"
+                    : "bg-subtle text-ink-faint cursor-not-allowed"
+                )}
               >
-                <option value="">Select state</option>
-                {US_STATES.map((state) => (
-                  <option key={state} value={state}>{state}</option>
-                ))}
-              </select>
+                Continue
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </button>
             </div>
-          </div>
-
-          <div className="flex gap-3 mt-8">
-            <button
-              onClick={onBack}
-              className="flex-1 px-6 py-3 border-2 border-navy-200 rounded-md font-semibold uppercase tracking-wider text-sm text-navy-600 hover:bg-navy-50 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 inline mr-2" />
-              Back
-            </button>
-            <button
-              onClick={onNext}
-              disabled={!isValid}
-              className={clsx(
-                "flex-1 px-6 py-3 rounded-md font-bold uppercase tracking-wider text-sm transition-all",
-                isValid
-                  ? "bg-gradient-to-r from-gold-500 to-gold-600 text-navy-950 btn-athletic shadow-lg shadow-gold-500/25"
-                  : "bg-navy-100 text-navy-400 cursor-not-allowed"
-              )}
-            >
-              Continue
-              <ArrowRight className="w-4 h-4 inline ml-2" />
-            </button>
           </div>
         </div>
       </div>

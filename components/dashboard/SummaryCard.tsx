@@ -11,18 +11,18 @@ interface SummaryCardProps {
 // ── Best practice: rerender-memo ──
 // SummaryCard is rendered four times in the header grid. Memoising prevents
 // re-renders when only unrelated dashboard state (e.g. selected tab) changes.
-export const SummaryCard = memo(function SummaryCard({ label, value, icon: Icon, accent }: SummaryCardProps) {
+export const SummaryCard = memo(function SummaryCard({ label, value, icon: Icon }: SummaryCardProps) {
   return (
-    <div className="bg-white rounded-lg border border-navy-100 border-t-4 border-t-gold-500 card-athletic p-5 shadow-sm">
+    <div className="bg-surface border border-line rounded-lg p-5">
       <div className="flex items-start justify-between">
         <div>
-          <p className="uppercase tracking-wider text-xs font-semibold text-navy-500">{label}</p>
-          <p className={clsx("text-3xl font-black tabular-nums font-display mt-1", accent ?? "text-navy-900")}>
+          <p className="text-xs text-ink-muted font-medium">{label}</p>
+          <p className="text-3xl font-semibold tabular-nums text-ink mt-1">
             {value}
           </p>
         </div>
-        <div className="p-2.5 bg-gold-500/10 rounded-lg">
-          <Icon className="w-5 h-5 text-gold-600" />
+        <div className="p-2 bg-subtle rounded-md">
+          <Icon className="w-4 h-4 text-ink-muted" aria-hidden="true" />
         </div>
       </div>
     </div>

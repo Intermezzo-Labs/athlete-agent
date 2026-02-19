@@ -13,6 +13,8 @@ coverage
 out/
 build
 
+.agents
+
 # misc
 .DS_Store
 *.pem

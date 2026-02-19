@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #060f1d;
+  color: #102a43;
+}
+
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffd60a;
+}
+
+/* ── Form focus states ── */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.3);
+}
+
+/* ── Athletic visual utilities ── */
+
+/* Angled section clips */
+.clip-angle-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+}
+
+.clip-angle-top {
+  clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Solid navy background - matches logo */
+.bg-speed-lines {
+  background-color: #060f1d;
+}
+
+/* Solid navy background - matches logo */
+.bg-hero-dark {
+  background-color: #060f1d;
+}
+
+/* Solid navy background - matches logo */
+.bg-dark-speed {
+  background-color: #060f1d;
+}
+
+/* Dot grid for dashboard backgrounds */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, rgba(16, 42, 67, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ── Component classes ── */
+
+/* Athletic CTA button hover */
+.btn-athletic {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-athletic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(255, 214, 10, 0.4);
+}
+.btn-athletic:active {
+  transform: translateY(0);
+}
+
+/* Table row hover with left accent */
+.row-athletic {
+  transition: all 0.15s ease;
+  border-left: 3px solid transparent;
+}
+.row-athletic:hover {
+  border-left-color: #ffd60a;
+  background: rgba(16, 42, 67, 0.03);
+}
+
+/* Card hover lift */
+.card-athletic {
+  transition: all 0.2s ease;
+}
+.card-athletic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px rgba(16, 42, 67, 0.15);
+}
+
+/* Loading shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(90deg, #f0f4f8 25%, #e2e8f0 50%, #f0f4f8 75%);
+  background-size: 200% 100%;
+}
+
+/* ── Risk badge colors (fallback / print) ── */
+.risk-low {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.risk-medium {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.risk-high {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* ── Print styles ── */
+@media print {
+  body {
+    background: white;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

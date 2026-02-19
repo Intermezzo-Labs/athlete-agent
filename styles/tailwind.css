@@ -4,9 +4,6 @@
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
 */
 @layer base {
   *,
@@ -16,4 +13,140 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+}
+
+/* ── Athlete Agent custom theme ── */
+@theme {
+  /* Navy palette */
+  --color-navy-50: #f0f4f8;
+  --color-navy-100: #d9e2ec;
+  --color-navy-200: #bcccd8;
+  --color-navy-300: #9fb3c8;
+  --color-navy-400: #829ab1;
+  --color-navy-500: #627d98;
+  --color-navy-600: #486581;
+  --color-navy-700: #334e68;
+  --color-navy-800: #243b53;
+  --color-navy-900: #102a43;
+  --color-navy-950: #060f1d;
+
+  /* Gold palette */
+  --color-gold-400: #fce04e;
+  --color-gold-500: #ffd60a;
+  --color-gold-600: #f4c400;
+  --color-gold-700: #d4a900;
+
+  /* Font families */
+  --font-body: var(--font-outfit, ui-sans-serif, system-ui, sans-serif);
+  --font-display: var(--font-outfit, ui-sans-serif, system-ui, sans-serif);
+
+  /* Custom animations */
+  --animate-slide-up: slide-up 0.6s ease both;
+  --animate-fade-in: fade-in 0.6s ease both;
+  --animate-pulse-ring: pulse-ring 1.5s ease-out infinite;
+  --animate-shimmer: shimmer 2s infinite linear;
+}
+
+/* ── Keyframes ── */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ── Base styles ── */
+@layer base {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #060f1d;
+    color: #102a43;
+  }
+
+  ::-webkit-scrollbar        { width: 8px; }
+  ::-webkit-scrollbar-track  { background: #f1f5f9; }
+  ::-webkit-scrollbar-thumb  { background: #cbd5e1; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #ffd60a; }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 214, 10, 0.3);
+  }
+}
+
+/* ── Component utilities ── */
+@layer utilities {
+  /* Section clips */
+  .clip-angle-bottom { clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
+  .clip-angle-top    { clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%); }
+
+  /* Solid navy backgrounds */
+  .bg-speed-lines { background-color: #060f1d; }
+  .bg-hero-dark   { background-color: #060f1d; }
+  .bg-dark-speed  { background-color: #060f1d; }
+
+  /* Dot grid */
+  .bg-dot-grid {
+    background-image: radial-gradient(circle, rgba(16, 42, 67, 0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Shimmer loading */
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(90deg, #f0f4f8 25%, #e2e8f0 50%, #f0f4f8 75%);
+    background-size: 200% 100%;
+  }
+
+  /* Athletic CTA button */
+  .btn-athletic {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-athletic:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px rgba(255, 214, 10, 0.4);
+  }
+  .btn-athletic:active { transform: translateY(0); }
+
+  /* Table row */
+  .row-athletic {
+    transition: all 0.15s ease;
+    border-left: 3px solid transparent;
+  }
+  .row-athletic:hover {
+    border-left-color: #ffd60a;
+    background: rgba(16, 42, 67, 0.03);
+  }
+
+  /* Card hover lift */
+  .card-athletic { transition: all 0.2s ease; }
+  .card-athletic:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -10px rgba(16, 42, 67, 0.15);
+  }
+
+  /* Risk badge colors */
+  .risk-low    { background-color: #d1fae5; color: #065f46; }
+  .risk-medium { background-color: #fef3c7; color: #92400e; }
+  .risk-high   { background-color: #fee2e2; color: #991b1b; }
+}
+
+/* ── Print styles ── */
+@media print {
+  body { background: white; }
+  .no-print { display: none !important; }
 }

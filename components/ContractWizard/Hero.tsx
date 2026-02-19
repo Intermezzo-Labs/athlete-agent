@@ -2,6 +2,7 @@
 
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 
 interface HeroProps {
@@ -48,7 +49,7 @@ export function Hero({ onStart }: HeroProps) {
         role="banner"
       >
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-          <a
+          <Link
             href="/"
             className="select-none"
             aria-label="Athlete Agent Labs — home"
@@ -79,7 +80,7 @@ export function Hero({ onStart }: HeroProps) {
                 ATHLETE AGENT LABS
               </text>
             </svg>
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <nav

@@ -1,5 +1,5 @@
-import { LandingPage } from "components/ContractWizard/LandingPage"
 import { Metadata } from "next"
+import { LandingPage } from "components/ContractWizard/LandingPage"
 
 export const metadata: Metadata = {
   title: "Athlete Agent Labs — NIL Contract Analyzer",

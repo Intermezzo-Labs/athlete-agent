@@ -31,13 +31,13 @@ export function Hero({ onStart }: HeroProps) {
         style={{ backgroundColor: NAVY, borderBottom: "1px solid rgba(255,255,255,0.08)" }}
         role="banner"
       >
-        <div className="w-full px-6 sm:px-10 lg:px-14">
-          <div className="flex items-center justify-between h-[96px] md:h-[112px]">
+        <div className="w-full pl-0 pr-6 sm:pl-0 sm:pr-10 lg:pl-2 lg:pr-14">
+          <div className="flex items-center justify-between h-[70px] md:h-[90px]">
 
             {/* Logo */}
             <Link
               href="/"
-              className="flex-shrink-0 flex items-center select-none opacity-95 hover:opacity-100 transition-opacity duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded-sm"
+              className="flex-shrink-0 flex items-center mt-1 select-none opacity-95 hover:opacity-100 transition-opacity duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded-sm"
               aria-label="Athlete Agent Labs — home"
             >
               <Image

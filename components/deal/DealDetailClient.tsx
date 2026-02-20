@@ -1,7 +1,6 @@
 "use client"
 
-import logoDark from "@/assets/logo-dark.svg"
-import logoWhite from "@/assets/logo-white.svg"
+import logo from "@/assets/athlete-agent-labs-logo.svg"
 import clsx from "clsx"
 import { API_URL, formatCurrency, formatDate } from "components/dashboard/helpers"
 import { LoginScreen } from "components/dashboard/LoginScreen"
@@ -121,24 +120,23 @@ export function DealDetailClient({ dealId }: DealDetailClientProps) {
   return (
     <div className="min-h-screen bg-canvas">
       <header className="border-b border-line">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
           <div className="flex items-center">
-            <Image src={logoDark} alt="Athlete Agent Labs" className="h-7 w-auto dark:hidden" />
-            <Image src={logoWhite} alt="Athlete Agent Labs" className="h-7 w-auto hidden dark:block" />
+            <Image src={logo} alt="Athlete Agent Labs" className="h-10 sm:h-12 md:h-14 w-auto" />
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <ThemeToggle />
             <Link
               href="/dashboard"
-              className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition duration-200 ease-in-out"
+              className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-ink-muted hover:text-ink transition duration-200 ease-in-out"
             >
-              <ArrowLeft className="w-4 h-4" aria-hidden="true" /> All deals
+              <ArrowLeft className="w-4 h-4" aria-hidden="true" /> <span className="hidden sm:inline">All deals</span>
             </Link>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {loading ? (
           <div className="flex items-center justify-center py-32">
             <Loader2 className="w-6 h-6 animate-spin text-ink-faint" aria-hidden="true" />

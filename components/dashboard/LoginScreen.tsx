@@ -1,7 +1,6 @@
 "use client"
 
-import logoDark from "@/assets/logo-dark.svg"
-import logoWhite from "@/assets/logo-white.svg"
+import logo from "@/assets/athlete-agent-labs-logo.svg"
 import clsx from "clsx"
 import { AlertTriangle, Loader2, Lock } from "lucide-react"
 import Image from "next/image"
@@ -39,14 +38,13 @@ export function LoginScreen({ onAuth }: LoginScreenProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-canvas px-6">
+    <div className="min-h-screen flex items-center justify-center bg-canvas px-4 sm:px-6">
       <form
         onSubmit={handleSubmit}
-        className="border border-line rounded-lg p-8 w-full max-w-sm space-y-6 bg-surface"
+        className="border border-line rounded-lg p-6 sm:p-8 w-full max-w-sm space-y-6 bg-surface"
       >
         <div className="text-center">
-          <Image src={logoDark} alt="Athlete Agent Labs" className="h-7 w-auto mb-8 mx-auto dark:hidden" />
-          <Image src={logoWhite} alt="Athlete Agent Labs" className="h-7 w-auto mb-8 mx-auto hidden dark:block" />
+          <Image src={logo} alt="Athlete Agent Labs" className="h-12 sm:h-14 w-auto mb-6 sm:mb-8 mx-auto" />
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-line mb-4">
             <Lock className="w-5 h-5 text-ink-muted" aria-hidden="true" />
           </div>

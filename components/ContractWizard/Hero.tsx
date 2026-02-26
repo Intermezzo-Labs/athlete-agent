@@ -4,7 +4,7 @@ import logo from "@/assets/athlete-agent-labs-logo.svg"
 import { ArrowRight, Menu, X } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface HeroProps {
   onStart: () => void
@@ -18,6 +18,13 @@ const NAVY = "#102243"
 
 export function Hero({ onStart }: HeroProps) {
   const [menuOpen, setMenuOpen] = useState(false)
+
+  // Lock body scroll so the landing page never scrolls
+  useEffect(() => {
+    const prev = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => { document.body.style.overflow = prev }
+  }, [])
 
   return (
     <div
@@ -47,16 +54,20 @@ export function Hero({ onStart }: HeroProps) {
               />
             </Link>
 
-            {/* Desktop CTA */}
-            <nav className="hidden md:flex items-center" aria-label="Primary navigation">
-              <button
-                onClick={onStart}
-                className="inline-flex items-center gap-2 bg-white text-[#102243] px-5 py-[10px] text-[11px] font-black uppercase tracking-[0.16em] rounded-sm hover:bg-white/90 active:scale-[0.98] transition duration-150 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
-                aria-label="Analyze your NIL contract"
-              >
-                Analyze Contract
-                <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true" />
-              </button>
+            {/* Desktop nav links */}
+            <nav className="hidden md:flex items-center gap-8" aria-label="Primary navigation">
+              {[
+                { href: "/blog", label: "Blog" },
+                { href: "/nil-resources", label: "NIL Resources" },
+              ].map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/70 hover:text-white transition duration-150 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded-sm"
+                >
+                  {label}
+                </Link>
+              ))}
             </nav>
 
             {/* Mobile hamburger — 44×44 touch target */}
@@ -85,14 +96,20 @@ export function Hero({ onStart }: HeroProps) {
             className="md:hidden"
             style={{ backgroundColor: NAVY, borderTop: "1px solid rgba(255,255,255,0.08)" }}
           >
-            <div className="px-6 sm:px-10 py-5">
-              <button
-                onClick={() => { setMenuOpen(false); onStart() }}
-                className="w-full inline-flex items-center justify-center gap-2.5 bg-white text-[#102243] py-3.5 text-[11px] font-black uppercase tracking-[0.16em] rounded-sm hover:bg-white/90 active:scale-[0.99] transition duration-150 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#102243]/40"
-              >
-                Analyze My Contract
-                <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true" />
-              </button>
+            <div className="px-6 sm:px-10 py-5 flex flex-col gap-4">
+              {[
+                { href: "/blog", label: "Blog" },
+                { href: "/nil-resources", label: "NIL Resources" },
+              ].map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-sm font-semibold uppercase tracking-[0.16em] text-white/70 hover:text-white transition duration-150 ease-in-out"
+                >
+                  {label}
+                </Link>
+              ))}
             </div>
           </div>
         )}

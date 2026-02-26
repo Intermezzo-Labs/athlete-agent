@@ -21,7 +21,7 @@ export function Hero({ onStart }: HeroProps) {
 
   return (
     <div
-      className="flex flex-col text-white"
+      className="flex flex-col h-dvh overflow-hidden text-white"
       style={{ backgroundColor: NAVY }}
     >
 
@@ -100,7 +100,7 @@ export function Hero({ onStart }: HeroProps) {
 
       {/* ── Hero — Full viewport height ────────────────────────────────────── */}
       <section
-        className="relative h-screen overflow-hidden"
+        className="relative flex-1 overflow-hidden"
         aria-label="Hero"
       >
         <Image
@@ -158,7 +158,7 @@ export function Hero({ onStart }: HeroProps) {
       </section>
 
       {/* ── Footer ──────────────────────────────────────────────────────────── */}
-      <footer className="border-t py-12" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+      <footer className="flex-none border-t py-3" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
         <div className="mx-auto max-w-7xl px-6 md:px-16 flex flex-col md:flex-row items-center justify-between gap-6">
           <span className="text-white font-bold text-xs tracking-[0.2em] uppercase">
             Athlete Agent Labs
